@@ -15,7 +15,7 @@ var guessesLeft = 9;
 
 var guessedLetters = [];
 
-var letterToGuess = null;
+var letterToGuess = "";
 
 // this willl allow the computer to select a random letter from the array
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -34,7 +34,7 @@ var updateLetterToGuess = function () {
 
 //here the users guesses will be displayed and seperate by a , for ease of use
 var updateGuessesSoFar = function () {
-	document.querySelector("#let").innerHTMl = "Your Guesses: " + guessedLetters.join(',');
+	document.querySelector("#let").innerHTMl = "Your Guesses: " + guessedLetters.push("userGuess");
 };
 
 updateLetterToGuess();
@@ -47,7 +47,7 @@ var reset = function () {
 	guessesLeft = 9;
 	guessedLetters = [];
 
-	updateGuessLeft();
+	updateGuessesLeft();
 	updateGuessesSoFar();
 }
 
@@ -56,10 +56,11 @@ document.onkeyup = function(event) {
     guessesLeft--;
   	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-  guessedLetters.push(guessedLetters);
+  guessedLetters.push("userGuess");
   updateGuessesLeft();
   updateGuessesSoFar();
 
+// this is so the score counter will increase with each letter correct
         if (guessesLeft > 0){
             if (userGuess == letterToGuess){
                 wins++;
@@ -67,6 +68,8 @@ document.onkeyup = function(event) {
                 alert("You really are psychic!");
                 reset();
             }
+
+//this is the else if statement, so when you are out of lives and alert will pop up
         }else if(guessesLeft == 0){
             // Then we will loss and we'll update the html to display the loss 
             losses++;
